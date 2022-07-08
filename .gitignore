@@ -14,3 +14,6 @@ coverage
 
 # Images in data file
 data/**/images
+
+# IDE specific
+.idea/*
