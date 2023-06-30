@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "prettier": "prettier --write \"{components,lib,pages,posts,public,styles}/*.{ts,tsx,js,jsx,json,css}\""
   },
   "dependencies": {
     "date-fns": "^2.30.0",
@@ -15,6 +16,9 @@
     "remark-html": "^15.0.2"
   },
   "devDependencies": {
-    "prettier": "^2.8.8"
+    "@types/node": "20.3.2",
+    "@types/react": "18.2.14",
+    "prettier": "2.8.8",
+    "typescript": "5.1.6"
   }
 }
