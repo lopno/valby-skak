@@ -12,7 +12,7 @@ export default function Post({
     title: string;
     date: string;
     content: string;
-    contentHtml: string; // TODO: proper type
+    contentHtml: string;
   };
 }) {
   return (
@@ -36,7 +36,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: true,
+    fallback: false,
   };
 };
 
