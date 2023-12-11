@@ -1,5 +1,6 @@
 // sanity.js
 import { createClient } from "@sanity/client";
+import { toHTML } from "@portabletext/to-html";
 // Import using ESM URL imports in environments that supports it:
 // import {createClient} from 'https://esm.sh/@sanity/client'
 
@@ -32,4 +33,40 @@ export async function getPosts(): Promise<IPostPreview[]> {
     "authorName": author->name
   }`);
   return posts;
+}
+
+export async function getPostIds(): Promise<{ params: { id: string } }[]> {
+  const posts = await getPosts();
+  return posts.map((post) => {
+    return {
+      params: {
+        id: post.slug.current,
+      },
+    };
+  });
+}
+
+interface IPost {
+  _type: "post";
+  _id: string; // UUID
+  title: string;
+  slug: { current: string; type: "_slug" };
+  content: any; // TODO
+  date: string;
+  authorName: string;
+}
+
+export async function getPost(id: string): Promise<IPost> {
+  const post = await client.fetch(
+    `*[_type == "post" && slug.current == $id]{
+      _id,
+      title,
+      slug,
+      content,
+      date,
+      "authorName": author->name
+    }[0]`,
+    { id }
+  );
+  return { ...post, contentHtml: toHTML(post.content) };
 }

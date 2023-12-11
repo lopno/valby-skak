@@ -7,17 +7,14 @@
     "prettier": "prettier --write \"{components,lib,pages,posts,public,styles}/*.{ts,tsx,js,jsx,json,css}\""
   },
   "dependencies": {
-    "@portabletext/react": "^3.0.4",
+    "@portabletext/to-html": "^2.0.5",
     "@sanity/client": "^6.1.5",
     "@sanity/image-url": "^1.0.2",
     "date-fns": "^2.30.0",
-    "gray-matter": "4.0.3",
     "next": "latest",
     "next-sanity": "^5.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "remark": "^14.0.3",
-    "remark-html": "^15.0.2"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@types/node": "20.3.2",

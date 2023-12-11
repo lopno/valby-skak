@@ -1,9 +1,9 @@
 import Layout from "../../components/layout";
-import { getAllPostIds, getPostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 import { GetStaticProps, GetStaticPaths } from "next";
+import { getPost, getPostIds } from "../../lib/sanity";
 
 export default function Post({
   postData,
@@ -11,7 +11,8 @@ export default function Post({
   postData: {
     title: string;
     date: string;
-    contentHtml: string;
+    content: string;
+    contentHtml: string; // TODO: proper type
   };
 }) {
   return (
@@ -31,15 +32,16 @@ export default function Post({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostIds();
+  const paths = await getPostIds();
+
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getPostData(params?.id as string);
+  const postData = await getPost(params?.id as string);
   return {
     props: {
       postData,
