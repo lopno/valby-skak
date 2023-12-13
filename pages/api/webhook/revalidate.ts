@@ -5,6 +5,9 @@ const secret = process.env.SANITY_WEBHOOK_SECRET;
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
+    if (req.method !== "POST") {
+      return res.status(405).send("Method Not Allowed");
+    }
     const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
     const body = await readBody(req); // Read the body into a string
     const isValid = await isValidSignature(body, signature, secret);
