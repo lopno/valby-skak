@@ -1,10 +1,11 @@
 import { isValidSignature, SIGNATURE_HEADER_NAME } from "@sanity/webhook";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
-export default async function handler(req, res) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const signature = req.headers[SIGNATURE_HEADER_NAME];
+    const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
     const body = await readBody(req); // Read the body into a string
     const isValid = await isValidSignature(body, signature, secret);
     if (!isValid) {
@@ -19,7 +20,7 @@ export default async function handler(req, res) {
   } catch (e) {
     return res.status(500).send("Error revalidating");
   }
-}
+};
 
 // Next.js will by default parse the body, which can lead to invalid signatures
 export const config = {
