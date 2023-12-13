@@ -27,7 +27,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       path: pathToRevalidate,
     });
   } catch (e) {
-    return res.status(500).send("Error revalidating");
+    return res.status(500).send(`Error revalidating: ${e.message}`);
   }
 };
 
