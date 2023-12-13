@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   try {
     const signature = req.headers[SIGNATURE_HEADER_NAME];
     const body = await readBody(req); // Read the body into a string
-    const isValid = isValidSignature(body, signature, secret);
+    const isValid = await isValidSignature(body, signature, secret);
     if (!isValid) {
       return res
         .status(401)
