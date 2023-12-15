@@ -34,7 +34,7 @@ export async function getPosts(): Promise<IPostPreview[]> {
     date,
     "authorName": author->name
   }`,
-    { cache: "force-cache", next: { tag: getPostsTag() } },
+    { cache: "force-cache", next: { tags: [getPostsTag()] } },
   );
   return posts;
 }
@@ -69,7 +69,7 @@ export async function getPost(slug: string): Promise<IPost> {
       date,
       "authorName": author->name
     }[0]`,
-    { slug, cache: "force-cache", next: { tag: getPostTag(slug) } },
+    { slug, cache: "force-cache", next: { tags: [getPostTag(slug)] } },
   );
   return { ...post, contentHtml: toHTML(post.content) };
 }
