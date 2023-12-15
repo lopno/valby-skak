@@ -24,24 +24,25 @@ export interface IPostPreview {
 
 // uses GROQ to query content: https://www.sanity.io/docs/groq
 export async function getPosts(): Promise<IPostPreview[]> {
-  const posts = await client.fetch(`*[_type == "post"]{
+  const posts = await client.fetch(
+    `*[_type == "post"]{
     _id,
     title,
     slug,
     excerpt,
     date,
     "authorName": author->name
-  }`);
+  }`,
+    { cache: "force-cache" },
+  );
   return posts;
 }
 
-export async function getPostIds(): Promise<{ params: { id: string } }[]> {
+export async function getPostIds(): Promise<{ id: string }[]> {
   const posts = await getPosts();
   return posts.map((post) => {
     return {
-      params: {
-        id: post.slug.current,
-      },
+      id: post.slug.current,
     };
   });
 }
@@ -52,6 +53,7 @@ interface IPost {
   title: string;
   slug: { current: string; type: "_slug" };
   content: any; // TODO
+  contentHtml: any; // TODO
   date: string;
   authorName: string;
 }
@@ -66,7 +68,7 @@ export async function getPost(id: string): Promise<IPost> {
       date,
       "authorName": author->name
     }[0]`,
-    { id }
+    { id, cache: "force-cache" },
   );
   return { ...post, contentHtml: toHTML(post.content) };
 }
