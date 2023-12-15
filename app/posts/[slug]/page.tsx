@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../../styles/utils.module.css";
-import { getPost, getPostIds } from "../../lib/sanity";
+import { getPost, getPostSlugs } from "../../lib/sanity";
 import Link from "next/link";
 import Image from "next/image";
 import { name } from "../../constants/name";
@@ -9,7 +9,7 @@ import styles from "../../components/layout.module.css";
 import Header from "../../components/header";
 
 export default async function Post({ params }) {
-  const postData = await getPost(params.id);
+  const postData = await getPost(params.slug);
 
   return (
     <>
@@ -50,6 +50,6 @@ export default async function Post({ params }) {
 }
 
 export async function generateStaticParams() {
-  const paths = await getPostIds();
+  const paths = await getPostSlugs();
   return paths;
 }

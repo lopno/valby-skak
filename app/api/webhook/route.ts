@@ -1,6 +1,7 @@
 import { parseBody } from "next-sanity/webhook";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { NextRequest } from "next/server";
+import { getPostsTag, getPostTag } from "../../lib/tag";
 
 const secret = process.env.SANITY_WEBHOOK_SECRET;
 
@@ -18,9 +19,12 @@ export async function POST(req: NextRequest) {
       return new Response("Invalid signature", { status: 401 });
     }
 
-    const pathToRevalidate = "/posts/[id]";
-    revalidatePath(pathToRevalidate);
-    return new Response(`Revalidated ${pathToRevalidate}`, { status: 200 });
+    const tagToRevalidate = getPostTag(body.slug.current);
+    // TODO: remove this again after everything is revalidated
+    revalidateTag(getPostsTag());
+
+    revalidateTag(tagToRevalidate);
+    return new Response(`Revalidated '${tagToRevalidate}'`, { status: 200 });
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
   }

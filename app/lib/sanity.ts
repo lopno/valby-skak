@@ -1,6 +1,7 @@
 // sanity.js
 import { createClient } from "@sanity/client";
 import { toHTML } from "@portabletext/to-html";
+import { getPostsTag, getPostTag } from "./tag";
 // Import using ESM URL imports in environments that supports it:
 // import {createClient} from 'https://esm.sh/@sanity/client'
 
@@ -33,16 +34,16 @@ export async function getPosts(): Promise<IPostPreview[]> {
     date,
     "authorName": author->name
   }`,
-    { cache: "force-cache" },
+    { cache: "force-cache", next: { tag: getPostsTag() } },
   );
   return posts;
 }
 
-export async function getPostIds(): Promise<{ id: string }[]> {
+export async function getPostSlugs(): Promise<{ slug: string }[]> {
   const posts = await getPosts();
   return posts.map((post) => {
     return {
-      id: post.slug.current,
+      slug: post.slug.current,
     };
   });
 }
@@ -58,9 +59,9 @@ interface IPost {
   authorName: string;
 }
 
-export async function getPost(id: string): Promise<IPost> {
+export async function getPost(slug: string): Promise<IPost> {
   const post = await client.fetch(
-    `*[_type == "post" && slug.current == $id]{
+    `*[_type == "post" && slug.current == $slug]{
       _id,
       title,
       slug,
@@ -68,7 +69,7 @@ export async function getPost(id: string): Promise<IPost> {
       date,
       "authorName": author->name
     }[0]`,
-    { id, cache: "force-cache" },
+    { slug, cache: "force-cache", next: { tag: getPostTag(slug) } },
   );
   return { ...post, contentHtml: toHTML(post.content) };
 }
