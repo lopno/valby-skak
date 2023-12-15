@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     }
 
     const pathToRevalidate = `/posts/[id]`;
-    revalidatePath(pathToRevalidate, "page");
+    revalidatePath(pathToRevalidate);
     return new Response(`Revalidated ${pathToRevalidate}`, { status: 200 });
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
