@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return new Response("Invalid signature", { status: 401 });
     }
 
-    const pathToRevalidate = `/posts/[id]`;
+    const pathToRevalidate = "/posts/[id]";
     revalidatePath(pathToRevalidate);
     return new Response(`Revalidated ${pathToRevalidate}`, { status: 200 });
   } catch (e) {
