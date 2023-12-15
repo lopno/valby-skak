@@ -9,13 +9,16 @@ export async function POST(req: Request) {
       return new Response("Method Not Allowed", { status: 401 });
     }
     const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
-    const body = await readBody(req); // Read the body into a string
-    const isValid = await isValidSignature(body, signature, secret);
+    const jsonBody = await req.json();
+    const isValid = await isValidSignature(
+      JSON.stringify(jsonBody),
+      signature,
+      secret,
+    );
     if (!isValid) {
       return new Response("Invalid signature", { status: 401 });
     }
 
-    const jsonBody = JSON.parse(body);
     const pathToRevalidate = `/posts/${jsonBody.slug.current}`;
     revalidatePath(pathToRevalidate);
     return new Response("Success!", { status: 200 });
