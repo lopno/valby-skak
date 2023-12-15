@@ -10,11 +10,7 @@ export async function POST(req: Request) {
     }
     const signature = req.headers[SIGNATURE_HEADER_NAME] as string;
     const jsonBody = await req.json();
-    const isValid = await isValidSignature(
-      JSON.stringify(jsonBody),
-      signature,
-      secret,
-    );
+    const isValid = await isValidSignature(jsonBody, signature, secret);
     if (!isValid) {
       return new Response("Invalid signature", { status: 401 });
     }
