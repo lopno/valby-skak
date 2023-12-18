@@ -1,5 +1,5 @@
 import { parseBody } from "next-sanity/webhook";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { NextRequest } from "next/server";
 import { getPostsTag, getPostTag } from "../../lib/tag";
 
@@ -24,6 +24,9 @@ export async function POST(req: NextRequest) {
     revalidateTag(getPostsTag());
 
     revalidateTag(tagToRevalidate);
+
+    revalidatePath("/posts/[slug]", "page");
+    revalidatePath(`/posts/${body.slug.current}`, "page");
     return new Response(`Revalidated '${tagToRevalidate}'`, { status: 200 });
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
