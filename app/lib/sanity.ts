@@ -33,7 +33,7 @@ export async function getPosts(): Promise<IPostPreview[]> {
     excerpt,
     date,
     "authorName": author->name
-  }`,
+  } | order(date desc)`,
     { cache: "force-cache", next: { tags: [getPostsTag()] } },
   );
   return posts;
