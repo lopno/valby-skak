@@ -21,8 +21,8 @@ export async function POST(req: NextRequest) {
     // revalidateTag(getPostsTag());
     // revalidateTag(getPostTag(body.slug.current));
     revalidatePath("/", "page");
-    // revalidatePath("/posts/[slug]", "page");
-    revalidatePath(`/posts/${body.slug.current}`, "page");
+    revalidatePath("/posts/[slug]", "page");
+    // revalidatePath(`/posts/${body.slug.current}`, "page");
     return new Response(`Revalidated '${body.slug.current}'`, { status: 200 });
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
