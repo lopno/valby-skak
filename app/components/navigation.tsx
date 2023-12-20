@@ -32,7 +32,7 @@ export function Navigation() {
         priority
         width={35}
         height={55}
-        src="/images/logospringeren.png"
+        src="/images/logoSpringeren.png"
         alt="Logo"
       />
       <p className="font-bold px-4 text-foreground">Valby Skakklub</p>
