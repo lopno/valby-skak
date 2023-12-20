@@ -29,6 +29,7 @@ export function Navigation() {
   const brand = (
     <Link href="/">
       <Image
+        priority
         width={35}
         height={55}
         src="/images/logospringeren.png"
