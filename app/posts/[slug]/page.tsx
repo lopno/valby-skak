@@ -3,7 +3,7 @@ import { getPost, getPostSlugs } from "../../lib/sanity";
 import Link from "next/link";
 import { Metadata } from "next";
 
-export async function generateMetaData({ params }): Promise<Metadata> {
+export async function generateMetadata({ params }): Promise<Metadata> {
   const postData = await getPost(params.slug);
   return {
     title: postData.title,
@@ -33,6 +33,5 @@ export default async function Post({ params }) {
 }
 
 export async function generateStaticParams() {
-  const paths = await getPostSlugs();
-  return paths;
+  return await getPostSlugs();
 }
