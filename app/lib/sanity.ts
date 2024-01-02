@@ -26,14 +26,14 @@ export interface IPostPreview {
 // uses GROQ to query content: https://www.sanity.io/docs/groq
 export async function getPosts(): Promise<IPostPreview[]> {
   const posts = await client.fetch(
-    `*[_type == "post"]{
+    `*[_type == "post"] | order(date desc) {
     _id,
     title,
     slug,
     excerpt,
     date,
     "authorName": author->name
-  } | order(date desc)`,
+  }`,
     { cache: "force-cache", next: { tags: [getPostsTag()] } },
   );
   return posts;
@@ -72,4 +72,28 @@ export async function getPost(slug: string): Promise<IPost> {
     { slug, cache: "force-cache", next: { tags: [getPostTag(slug)] } },
   );
   return { ...post, contentHtml: toHTML(post.content) };
+}
+
+interface ISideBar {
+  _type: "sidebar";
+  _id: string; // UUID
+  title: string;
+  content: any; // TODO
+  contentHtml: any; // TODO
+  date: string;
+  authorName: string;
+}
+
+export async function getSidebar(): Promise<ISideBar> {
+  const sidebar = await client.fetch(
+    `*[_type == "sidebar"] | order(date desc) {
+      _id,
+      title,
+      content,
+      date,
+      "authorName": author->name
+    }[0]`,
+    { cache: "force-cache" },
+  );
+  return { ...sidebar, contentHtml: toHTML(sidebar.content) };
 }

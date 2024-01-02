@@ -18,12 +18,20 @@ export async function POST(req: NextRequest) {
       return new Response("Invalid signature", { status: 401 });
     }
 
-    // revalidateTag(getPostsTag());
-    // revalidateTag(getPostTag(body.slug.current));
-    revalidatePath("/", "page");
-    revalidatePath("/posts/[slug]", "page");
-    revalidatePath(`/posts/${body.slug.current}`, "page");
-    return new Response(`Revalidated '${body.slug.current}'`, { status: 200 });
+    if (body._type === "sidebar") {
+      revalidatePath("/", "page");
+    }
+
+    if (body._type === "post") {
+      // revalidateTag(getPostsTag());
+      // revalidateTag(getPostTag(body.slug.current));
+      revalidatePath("/", "page");
+      revalidatePath("/posts/[slug]", "page");
+      revalidatePath(`/posts/${body.slug.current}`, "page");
+      return new Response(`Revalidated '${body.slug.current}'`, {
+        status: 200,
+      });
+    }
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
   }
