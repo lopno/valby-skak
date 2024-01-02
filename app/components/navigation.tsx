@@ -26,12 +26,16 @@ export function Navigation() {
     { title: "Bliv medlem", href: "#" },
   ];
 
+  const brandHeight = 55;
+  const brandWidth = 35;
+
   const brand = (
     <Link href="/">
       <Image
         priority
-        width={35}
-        height={55}
+        width={brandWidth}
+        height={brandHeight}
+        style={{ width: brandWidth, height: brandHeight }}
         src="/images/logoSpringeren.png"
         alt="Logo"
       />
