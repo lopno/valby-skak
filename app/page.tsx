@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main>
       <section>
-        <div className="flex flex-col px-4">
+        <div className="flex flex-col px-4 min-w-80">
           {sanityPosts.map((post) => (
             <Link className="my-4" href={`/posts/${post.slug.current}`}>
               <Card key={post._id}>
