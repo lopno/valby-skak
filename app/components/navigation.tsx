@@ -1,3 +1,5 @@
+"use client";
+import * as React from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -9,21 +11,40 @@ import {
 } from "@nextui-org/navbar";
 import { Link } from "@nextui-org/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+interface INavigationItem {
+  title: string;
+  href: string;
+  external: boolean;
+}
 
 export function Navigation() {
-  const current = "Nyheder";
+  const current = usePathname();
 
-  const items = [
-    { title: "Nyheder", href: "/" },
-    { title: "Kontakt", href: "#" },
-    { title: "Kalender", href: "#" },
-    { title: "Vinterturnering", href: "#" },
-    { title: "Holdskak", href: "#" },
-    { title: "Rangliste", href: "#" },
-    { title: "Galleri", href: "#" },
-    { title: "Historie", href: "#" },
-    { title: "Tid og sted", href: "#" },
-    { title: "Bliv medlem", href: "#" },
+  const items: INavigationItem[] = [
+    { title: "Nyheder", href: "/", external: false },
+    { title: "Kontakt", href: "/contact", external: false },
+    { title: "Kalender", href: "/calendar", external: false },
+    {
+      title: "Vinterturnering",
+      href: "https://turnering.skak.dk/TournamentActive/Details?tourId=28486",
+      external: true,
+    },
+    {
+      title: "Holdskak",
+      href: "/team",
+      external: false,
+    },
+    {
+      title: "Rangliste",
+      href: "https://turnering.skak.dk/ClubAndMembers/ClubDetails/13",
+      external: true,
+    },
+    { title: "Galleri", href: "/gallery", external: false },
+    { title: "Historie", href: "/history", external: false },
+    { title: "Tid og sted", href: "/time-place", external: false },
+    { title: "Bliv medlem", href: "/new-member", external: false },
   ];
 
   const brandHeight = 55;
@@ -52,13 +73,17 @@ export function Navigation() {
       <NavbarBrand className="hidden lg:flex pr-3">{brand}</NavbarBrand>
       <NavbarContent justify="center" className="hidden lg:flex flex-1 gap-4">
         {items.map((item) => {
-          const isCurrent = item.title === current;
+          const isCurrent = item.href === current;
           return (
             <NavbarItem key={item.title} isActive={isCurrent}>
               <Link
-                color={item.title === current ? "primary" : "foreground"}
+                color={isCurrent ? "primary" : "foreground"}
                 href={item.href}
                 {...(isCurrent ? { "aria-current": "page" } : {})}
+                {...(item.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="flex items-start gap-x-0.5"
               >
                 {item.title}
               </Link>
@@ -67,18 +92,21 @@ export function Navigation() {
         })}
       </NavbarContent>
       <NavbarMenu>
-        {items.map((item, index) => (
-          <NavbarMenuItem key={item.title}>
-            <Link
-              color={item.title === current ? "primary" : "foreground"}
-              className="w-full"
-              size="lg"
-              href={item.href}
-            >
-              {item.title}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        {items.map((item, index) => {
+          const isCurrent = item.href === current;
+          return (
+            <NavbarMenuItem key={item.title}>
+              <Link
+                color={isCurrent ? "primary" : "foreground"}
+                className="w-full"
+                size="lg"
+                href={item.href}
+              >
+                {item.title}
+              </Link>
+            </NavbarMenuItem>
+          );
+        })}
       </NavbarMenu>
       <NavbarContent className="flex-shrink-0" />
     </Navbar>
