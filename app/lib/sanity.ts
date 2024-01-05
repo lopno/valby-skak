@@ -97,3 +97,33 @@ export async function getSidebar(): Promise<ISideBar> {
   );
   return { ...sidebar, contentHtml: toHTML(sidebar.content) };
 }
+
+interface IContact {
+  _type: "contact";
+  _id: string; // UUID
+  title: string;
+  information: string[];
+}
+
+interface IContacts {
+  _type: "contacts";
+  _id: string; // UUID
+  title: string;
+  contacts: IContact[];
+}
+
+export async function getContacts(): Promise<IContacts | undefined> {
+  const contacts = await client.fetch(
+    `*[_type == "contacts"] | order(date desc) {
+      _id,
+      title,
+      contacts[]->{
+        _id,
+        title,
+        information
+      },
+    }[0]`,
+    { cache: "force-cache" },
+  );
+  return contacts;
+}

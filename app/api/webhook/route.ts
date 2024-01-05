@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
 
     if (body._type === "sidebar") {
       revalidatePath("/", "page");
+      return new Response("Revalidated sidebar", { status: 200 });
     }
 
     if (body._type === "post") {
@@ -31,6 +32,11 @@ export async function POST(req: NextRequest) {
       return new Response(`Revalidated '${body.slug.current}'`, {
         status: 200,
       });
+    }
+
+    if (body._type === "contact" || body._type === "contacts") {
+      revalidatePath("/contact", "page");
+      return new Response("Revalidated contacts", { status: 200 });
     }
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
