@@ -1,4 +1,6 @@
-export const sidebar = {
+import type { SchemaTypeDefinition } from "sanity";
+
+export const sidebar: SchemaTypeDefinition = {
   name: "sidebar",
   title: "Sidebar",
   type: "document",

@@ -1,12 +1,14 @@
-export const author = {
-  name: 'author',
-  title: 'Author',
-  type: 'document',
+import type { SchemaTypeDefinition } from "sanity";
+
+export const author: SchemaTypeDefinition = {
+  name: "author",
+  title: "Author",
+  type: "document",
   fields: [
     {
-      name: 'name',
-      title: 'Name',
-      type: 'string',
+      name: "name",
+      title: "Name",
+      type: "string",
       validation: (Rule) => Rule.required(),
     },
     // {
@@ -17,4 +19,4 @@ export const author = {
     //   validation: (Rule) => Rule.required(),
     // },
   ],
-}
+};
