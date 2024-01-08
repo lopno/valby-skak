@@ -12,6 +12,7 @@ import {
 import { Link } from "@nextui-org/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import ThemeSwitch from "./themeSwitch";
 
 interface INavigationItem {
   title: string;
@@ -91,6 +92,9 @@ export function Navigation() {
           );
         })}
       </NavbarContent>
+      <NavbarContent justify="end">
+        <ThemeSwitch />
+      </NavbarContent>
       <NavbarMenu>
         {items.map((item, index) => {
           const isCurrent = item.href === current;
@@ -108,7 +112,6 @@ export function Navigation() {
           );
         })}
       </NavbarMenu>
-      <NavbarContent className="flex-shrink-0" />
     </Navbar>
   );
 }

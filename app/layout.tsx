@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import { siteTitle } from "./constants/title";
 import { Providers } from "./providers";
 import { Navigation } from "./components/navigation";
-import { Button } from "@nextui-org/react";
 import { Metadata } from "next";
 
 /*
@@ -29,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }) {
   return (
-    <html lang="da" className="dark">
+    <html lang="da" suppressHydrationWarning>
       <body>
         <Providers>
           <main>

@@ -21,7 +21,7 @@ export default async function Home() {
         <div className="flex flex-wrap">
           <div className="flex grow basis-2/3 flex-col px-4 min-w-80 space-y-4 py-4">
             {sanityPosts.map((post) => (
-              <Link href={`/posts/${post.slug.current}`}>
+              <Link href={`/posts/${post.slug.current}`} key={post._id}>
                 <Card key={post._id}>
                   <CardHeader className="flex flex-col items-start">
                     <h2>{post.title}</h2>
@@ -44,7 +44,8 @@ export default async function Home() {
               </CardHeader>
               <Divider />
               <CardBody className="space-y-2">
-                <div className="leading-6 space-y-2"
+                <div
+                  className="leading-6 space-y-2"
                   dangerouslySetInnerHTML={{ __html: sidebar.contentHtml }}
                 />
               </CardBody>
