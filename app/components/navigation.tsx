@@ -48,7 +48,7 @@ export function Navigation() {
     { title: "Bliv medlem", href: "/new-member", external: false },
   ];
 
-  const brandHeight = 55;
+  const brandHeight = 46.67;
   const brandWidth = 35;
 
   const brand = (
