@@ -19,6 +19,7 @@ export default function ThemeSwitch() {
 
   return (
     <Switch
+      aria-label="Skift mellem lyst og mørkt tema"
       startContent={<SunIcon />}
       endContent={<MoonIcon />}
       color="warning"

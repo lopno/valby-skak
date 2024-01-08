@@ -61,7 +61,7 @@ export default async function Home() {
                 </CardHeader>
                 <Image
                   removeWrapper
-                  alt="Holmberg Fadølsservice"
+                  alt="Holmberg Fadølsservice Logo"
                   className="z-0 w-full h-full object-cover"
                   src="/images/HolmbergLogo.png"
                 />

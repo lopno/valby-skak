@@ -93,7 +93,9 @@ export function Navigation() {
         })}
       </NavbarContent>
       <NavbarContent justify="end">
-        <ThemeSwitch />
+        <NavbarItem>
+          <ThemeSwitch />
+        </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
         {items.map((item, index) => {
