@@ -20,7 +20,7 @@ interface INavigationItem {
   external: boolean;
 }
 
-export function Navigation() {
+export default function Navigation() {
   const current = usePathname();
 
   const items: INavigationItem[] = [

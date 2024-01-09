@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import { siteTitle } from "./constants/title";
 import { Providers } from "./providers";
-import { Navigation } from "./components/navigation";
 import { Metadata } from "next";
 
 /*
@@ -31,7 +30,6 @@ export default function Layout({ children }) {
     <html lang="da" suppressHydrationWarning>
       <body>
         <Providers>
-          <Navigation />
           <main>{children}</main>
         </Providers>
       </body>
