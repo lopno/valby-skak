@@ -55,12 +55,14 @@ export const post: SchemaTypeDefinition = {
   preview: {
     select: {
       title: "title",
-      author: "author.name",
-      media: "coverImage",
+      slug: "slug",
+      excerpt: "excerpt",
+      date: "date",
+      authorName: "author.name",
     },
-    prepare(selection) {
-      const { author } = selection;
-      return { ...selection, subtitle: author && `by ${author}` };
-    },
+    prepare: ({ title, slug, excerpt, date, authorName }) => ({
+      title: `${new Date(date).toLocaleDateString()} ${title}`,
+      subtitle: excerpt,
+    }),
   },
 };

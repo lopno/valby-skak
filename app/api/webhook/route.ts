@@ -38,6 +38,11 @@ export async function POST(req: NextRequest) {
       revalidatePath("/contact", "page");
       return new Response("Revalidated contacts", { status: 200 });
     }
+
+    if (body._type === "calendarEvent") {
+      revalidatePath("/calendar", "page");
+      return new Response("Revalidated calendar", { status: 200 });
+    }
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
   }

@@ -31,10 +31,8 @@ export default function Layout({ children }) {
     <html lang="da" suppressHydrationWarning>
       <body>
         <Providers>
-          <main>
-            <Navigation />
-            {children}
-          </main>
+          <Navigation />
+          <main>{children}</main>
         </Providers>
       </body>
     </html>

@@ -127,3 +127,27 @@ export async function getContacts(): Promise<IContacts | undefined> {
   );
   return contacts;
 }
+
+export interface ICalendarEvent {
+  _type: "calendarEvent";
+  _id: string; // UUID
+  title: string;
+  date: string;
+  openers: string;
+}
+
+export async function getCalendarEvents(): Promise<ICalendarEvent[]> {
+  const calendarEvents = await client.fetch(
+    `*[_type == "calendarEvent" && date >= now()] | order(date asc) {
+      _id,
+      title,
+      date,
+      openers,
+    }`,
+    {
+      cache: "force-cache",
+      revalidate: 60 * 60 * 24, // revalidate daily to avoid showing old events
+    },
+  );
+  return calendarEvents;
+}

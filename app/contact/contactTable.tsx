@@ -19,7 +19,7 @@ interface IContactTableProps {
   contacts: contact[];
 }
 
-export function ContactTable(props: IContactTableProps) {
+export default function ContactTable(props: IContactTableProps) {
   return (
     <Table
       aria-label="Kontakter for Valby Skakklub"
@@ -27,7 +27,7 @@ export function ContactTable(props: IContactTableProps) {
       className="py-2"
       classNames={{
         wrapper: "px-0 lg:px-4",
-        td: "pl-0 lg:pl-3",
+        td: "pl-0 sm:pl-3",
       }}
     >
       <TableHeader>

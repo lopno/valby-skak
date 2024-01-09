@@ -14,7 +14,7 @@ export default async function Post({ params }) {
   const postData = await getPost(params.slug);
 
   return (
-    <main className="flex flex-row justify-center">
+    <section className="flex flex-row justify-center">
       <article className="px-4 w-full lg:w-1/2 min-w-80">
         <h1 className="text-4xl py-2">{postData.title}</h1>
         <div className="text-gray-300 py-2">
@@ -28,7 +28,7 @@ export default async function Post({ params }) {
           <Link href="/">← Back to home</Link>
         </div>
       </article>
-    </main>
+    </section>
   );
 }
 
