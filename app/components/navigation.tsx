@@ -13,6 +13,7 @@ import { Link } from "@nextui-org/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import ThemeSwitch from "./themeSwitch";
+import ExternalLinkIcon from "./icons/externalLinkIcon";
 
 interface INavigationItem {
   title: string;
@@ -87,6 +88,7 @@ export default function Navigation() {
                 className="flex items-start gap-x-0.5"
               >
                 {item.title}
+                {item.external && <ExternalLinkIcon />}
               </Link>
             </NavbarItem>
           );
