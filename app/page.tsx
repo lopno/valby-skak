@@ -32,9 +32,7 @@ export default async function Home() {
                     </small>
                   </CardHeader>
                   <Divider />
-                  <CardBody>
-                    {post.excerpt && <p>{post.excerpt}...</p>}
-                  </CardBody>
+                  <CardBody>{post.excerpt && <p>{post.excerpt}…</p>}</CardBody>
                 </Card>
               </Link>
             ))}
@@ -58,8 +56,10 @@ export default async function Home() {
               rel="noopener noreferrer"
             >
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-col items-start">
                   <h2>Holmberg Fadølsservice</h2>
+                  <p>Valby Skakklubs sponsor gennem de sidste 34 år</p>
+                  <span className="text-primary">www.fadoelsservice.dk</span>
                 </CardHeader>
                 <Image
                   removeWrapper

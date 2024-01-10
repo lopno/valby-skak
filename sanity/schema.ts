@@ -5,7 +5,8 @@ import { author } from "./schemas/author";
 import { contact } from "./schemas/contact";
 import { contacts } from "./schemas/contacts";
 import { calendarEvent } from "./schemas/calendarEvent";
+import { team } from "./schemas/team";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [post, sidebar, author, contact, contacts, calendarEvent],
+  types: [post, sidebar, author, contact, contacts, calendarEvent, team],
 };

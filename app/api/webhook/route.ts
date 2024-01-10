@@ -43,6 +43,11 @@ export async function POST(req: NextRequest) {
       revalidatePath("/calendar", "page");
       return new Response("Revalidated calendar", { status: 200 });
     }
+
+    if (body._type === "team") {
+      revalidatePath("/team", "page");
+      return new Response("Revalidated team", { status: 200 });
+    }
   } catch (e) {
     return new Response(`Error revalidating: ${e.message}`, { status: 400 });
   }

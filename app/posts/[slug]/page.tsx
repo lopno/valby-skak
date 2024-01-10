@@ -25,7 +25,7 @@ export default async function Post({ params }) {
           dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
         />
         <div>
-          <Link href="/">← Back to home</Link>
+          <Link href="/">← Tilbage til forsiden</Link>
         </div>
       </article>
     </section>

@@ -151,3 +151,25 @@ export async function getCalendarEvents(): Promise<ICalendarEvent[]> {
   );
   return calendarEvents;
 }
+
+interface ITeam {
+  _type: "team";
+  _id: string; // UUID
+  title: string;
+  date: string;
+  content: any; // TODO
+  contentHtml: any; // TODO
+}
+
+export async function getTeam(): Promise<ITeam | undefined> {
+  const team = await client.fetch(
+    `*[_type == "team"] | order(date desc) {
+      _id,
+      title,
+      date,
+      content,
+    }[0]`,
+    { cache: "force-cache" },
+  );
+  return { ...team, contentHtml: toHTML(team.content) };
+}
